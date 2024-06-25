@@ -1,0 +1,24 @@
+def meet_in_the_middle(arr, target):
+    n = len(arr)
+    first_half = arr[:n//2]
+    second_half = arr[n//2:]
+
+    def subset_sums(arr):
+        sums = {0}
+        for num in arr:
+            new_sums = {num + s for s in sums}
+            sums.update(new_sums)
+        return sums
+
+    sums_first_half = subset_sums(first_half)
+    sums_second_half = subset_sums(second_half)
+
+    for s1 in sums_first_half:
+        if target - s1 in sums_second_half:
+            return True
+    return False
+
+arr = [3, 34, 4, 12, 5, 2]
+target = 9
+result = meet_in_the_middle(arr, target)
+print(f"Subset with sum {target} exists: {result}")
