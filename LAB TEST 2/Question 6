@@ -1,0 +1,21 @@
+def karatsuba(x, y):
+    if x < 10 or y < 10:
+        return x * y
+
+    m = min(len(str(x)), len(str(y))) // 2
+
+    x0 = x // 10**m
+    x1 = x % 10**m
+    y0 = y // 10**m
+    y1 = y % 10**m
+
+    z0 = karatsuba(x0, y0)
+    z1 = karatsuba(x0 + x1, y0 + y1)
+    z2 = karatsuba(x1, y1)
+
+    return z0 * 10**(2 * m) + (z1 - z0 - z2) * 10**m + z2
+
+x = 1234
+y = 5678
+result = karatsuba(x, y)
+print(f"Product of {x} and {y}: {result}")
