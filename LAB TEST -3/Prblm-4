@@ -1,0 +1,57 @@
+import heapq
+
+class HuffmanNode:
+    def __init__(self, char, freq):
+        self.char = char
+        self.freq = freq
+        self.left = None
+        self.right = None
+
+    def __lt__(self, other):
+        return self.freq < other.freq
+
+def build_huffman_tree(characters, frequencies):
+    heap = [HuffmanNode(char, freq) for char, freq in zip(characters, frequencies)]
+    heapq.heapify(heap)
+    
+    while len(heap) > 1:
+        left = heapq.heappop(heap)
+        right = heapq.heappop(heap)
+        merged = HuffmanNode(None, left.freq + right.freq)
+        merged.left = left
+        merged.right = right
+        heapq.heappush(heap, merged)
+    
+    return heap[0]
+
+def decode_huffman_tree(root, encoded_string):
+    result = []
+    current_node = root
+    
+    for bit in encoded_string:
+        if bit == '0':
+            current_node = current_node.left
+        else:
+            current_node = current_node.right
+        
+        if current_node.left is None and current_node.right is None:
+            result.append(current_node.char)
+            current_node = root
+    
+    return ''.join(result)
+
+# Test Case 1
+n1 = 4
+characters1 = ['a', 'b', 'c', 'd']
+frequencies1 = [5, 9, 12, 13]
+encoded_string1 = '1101100111110'
+root1 = build_huffman_tree(characters1, frequencies1)
+print(decode_huffman_tree(root1, encoded_string1))  # Output: "abacd"
+
+# Test Case 2
+n2 = 6
+characters2 = ['f', 'e', 'd', 'c', 'b', 'a']
+frequencies2 = [5, 9, 12, 13, 16, 45]
+encoded_string2 = '110011011100101111001011'
+root2 = build_huffman_tree(characters2, frequencies2)
+print(decode_huffman_tree(root2, encoded_string2))  # Output: "fcbade"
