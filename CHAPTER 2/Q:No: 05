@@ -1,0 +1,21 @@
+def find_kth_missing(arr, k):
+    n = len(arr)
+    i = 0
+    current_num = 1
+    missing_count = 0
+    
+    while i < n:
+        if arr[i] == current_num:
+            i += 1
+        else:
+            missing_count += 1
+            if missing_count == k:
+                return current_num
+        current_num += 1
+    
+    # If we exhaust the array and still haven't found k missing numbers
+    return current_num + (k - missing_count - 1)
+
+# Test cases from the prompt
+print(find_kth_missing([2,3,4,7,11], 5))  # Output: 9
+print(find_kth_missing([1,2,3,4], 2))    # Output: 6
