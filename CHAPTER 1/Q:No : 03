@@ -1,0 +1,23 @@
+def sum_of_squares_of_distinct_counts(nums):
+    n = len(nums)
+    sum_squares = 0
+
+    for start in range(n):
+        freq = {}
+        distinct_count = 0
+        for end in range(start, n):
+            if nums[end] not in freq:
+                freq[nums[end]] = 0
+                distinct_count += 1
+            freq[nums[end]] += 1
+            sum_squares += distinct_count ** 2
+
+    return sum_squares
+
+# Example 1
+nums_example1 = [1, 2, 1]
+print(sum_of_squares_of_distinct_counts(nums_example1))  # Output: 15
+
+# Example 2
+nums_example2 = [1, 1]
+print(sum_of_squares_of_distinct_counts(nums_example2))  # Output: 3
