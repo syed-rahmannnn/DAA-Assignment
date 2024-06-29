@@ -1,0 +1,17 @@
+def bubble_sort(nums):
+    n = len(nums)
+    for i in range(n):
+        swapped = False
+        for j in range(0, n - i - 1):
+            if nums[j] > nums[j + 1]:
+                nums[j], nums[j + 1] = nums[j + 1], nums[j]  # Swap the elements
+                swapped = True
+        if not swapped:
+            break
+    return nums
+
+# Test Cases
+print(bubble_sort([5, 2, 9, 1, 5, 6]))  # Expected Output: [1, 2, 5, 5, 6, 9]
+print(bubble_sort([3, 7, 3, 5, 2, 5, 9, 2]))  # Expected Output: [2, 2, 3, 3, 5, 5, 7, 9]
+print(bubble_sort([-1, 2, -1, 3, 2, -2]))  # Expected Output: [-2, -1, -1, 2, 2, 3]
+print(bubble_sort([1000000, 999999, 1000000]))  # Expected Output: [999999, 1000000, 1000000]
