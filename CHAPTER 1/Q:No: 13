@@ -1,0 +1,16 @@
+def climbStairs(n):
+    if n == 0 or n == 1:
+        return 1
+    if n == 2:
+        return 2
+
+    prev1, prev2 = 1, 2
+    for i in range(3, n + 1):
+        curr = prev1 + prev2
+        prev1, prev2 = prev2, curr
+    
+    return prev2
+
+# Test Cases
+print(climbStairs(4))  # Expected Output: 5
+print(climbStairs(3))  # Expected Output: 3
